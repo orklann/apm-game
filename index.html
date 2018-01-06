@@ -17,6 +17,7 @@
 
             var total = 0;
             var correct = 0;
+            var startTime = 0;
             function onKeyDown(e) {
                 var char = String.fromCharCode(e.keyCode);
                 console.log(char);
@@ -40,6 +41,20 @@
                 rate.innerText = rateString;
             }
 
+            function foramtTime() {
+                var hours = 0;
+                var minutes = 0;
+                var seconds = 0;
+                hours = parseInt(startTime / (60*60));
+                minutes = parseInt((startTime - (hours * 60 * 60)) / 60);
+                seconds = parseInt((startTime - (hours * 60 * 60)) - (minutes * 60));
+
+                const m = minutes < 10? '0' + minutes : minutes;
+                const s = seconds < 10? '0' + seconds : seconds;
+
+                return hours + ":" + m + ":" + s;
+            }
+
             function init() {
                 var letter = document.getElementById('letter');
                 letter.style.display = "none";
@@ -53,6 +68,13 @@
                 letter.style.display = "block";
                 letter.innerText = randomLetter(localStorage.letters);
                 document.addEventListener("keydown", onKeyDown, false);
+
+                setInterval(function(){
+                    startTime += 1;
+                    const time = document.getElementById('time');
+                    const ts = foramtTime();
+                    time.innerText = ts;
+                }, 1000);
             }
 
             function custom(){
@@ -122,11 +144,19 @@
                 padding: 3px;
                 background-color: #90EE90;
             }
+
+            #time {
+                font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+                font-size: 13px;
+                padding: 3px;
+                background-color: #CCCC00;
+                margin-left: 8px;
+            }
         </style>
     </head>
     <body onload="init();">
         <div id="letter"></div>
         <button id="start" onclick="start();">Start to play</button>
-        <span id="rate">Correct Rate: 0/0</span><button id="custom" onclick="custom();">Custom Letters Set</button>
+        <span id="rate">Correct Rate: 0/0</span><span id="time">00:00:00</span><button id="custom" onclick="custom();">Custom Letters Set</button>
     </body>
 </html>
