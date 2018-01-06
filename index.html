@@ -15,6 +15,8 @@
                 return letters[index];
             }
 
+            var total = 0;
+            var correct = 0;
             function onKeyDown(e) {
                 var char = String.fromCharCode(e.keyCode);
                 console.log(char);
@@ -25,10 +27,17 @@
                     document.body.style.backgroundColor = "white";
                     var letter = document.getElementById('letter');
                     letter.innerText = randomLetter(localStorage.letters);
+                    correct += 1;
                 } else {
                     console.log("Wrong");
                     document.body.style.backgroundColor = "red";
                 }
+
+                total += 1;
+
+                var rate = document.getElementById('rate');
+                var rateString = "Correct Rate: " + correct + "/" + total;
+                rate.innerText = rateString;
             }
 
             function init() {
@@ -43,7 +52,6 @@
                 var letter = document.getElementById('letter');
                 letter.style.display = "block";
                 letter.innerText = randomLetter(localStorage.letters);
-
                 document.addEventListener("keydown", onKeyDown, false);
             }
 
@@ -81,11 +89,16 @@
                 font-family: "Gill Sans";
                 font-size: 14px;
             }
+
+            #rate {
+                font-family: "Gill Sans";
+                font-size: 14px;
+            }
         </style>
     </head>
     <body onload="init();">
         <div id="letter"></div>
         <button id="start" onclick="start();">Start to play</button>
-        <button id="custom" onclick="custom();">Custom Letters Set</button>
+        <span id="rate">Correct Rate: 0/0</span><button id="custom" onclick="custom();">Custom Letters Set</button>
     </body>
 </html>
