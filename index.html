@@ -49,10 +49,11 @@
                 minutes = parseInt((startTime - (hours * 60 * 60)) / 60);
                 seconds = parseInt((startTime - (hours * 60 * 60)) - (minutes * 60));
 
+                const h = hours < 10? '0' + hours : hours;
                 const m = minutes < 10? '0' + minutes : minutes;
                 const s = seconds < 10? '0' + seconds : seconds;
 
-                return hours + ":" + m + ":" + s;
+                return h + ":" + m + ":" + s;
             }
 
             function init() {
