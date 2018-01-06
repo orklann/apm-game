@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>APM training game</title>
+        </script>
+        <script type="text/javascript">
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function randomLetter(letters) {
+                var len = letters.length;
+                var index = getRandomInt(0, len - 1);
+                return letters[index];
+            }
+
+            function onKeyDown(e) {
+                var char = String.fromCharCode(e.keyCode);
+                console.log(char);
+                var letter = document.getElementById('letter');
+                var l = letter.innerText;
+                if (char.toUpperCase() === l.toUpperCase()) {
+                    console.log("OK");
+                    document.body.style.backgroundColor = "white";
+                    var letter = document.getElementById('letter');
+                    letter.innerText = randomLetter(localStorage.letters);
+                } else {
+                    console.log("Wrong");
+                    document.body.style.backgroundColor = "red";
+                }
+            }
+
+            function init() {
+                var letter = document.getElementById('letter');
+                letter.style.display = "none";
+            }
+
+            function start() {
+                var startButton = document.getElementById('start');
+                startButton.style.display = "none";
+                console.log("Your letters are: " + localStorage.letters);
+                var letter = document.getElementById('letter');
+                letter.style.display = "block";
+                letter.innerText = randomLetter(localStorage.letters);
+
+                document.addEventListener("keydown", onKeyDown, false);
+            }
+
+            function custom(){
+                var result = window.prompt("Enter the letters you want");
+                localStorage.letters = result.toUpperCase();
+            }
+        </script>
+        <style media="screen">
+            #letter {
+                position: absolute;
+            	top: 50%; left: 50%;
+            	transform: translate(-50%,-50%);
+                font-family: "Gill Sans";
+                font-size: 128px;
+                width: 100px;
+                height: 120px;
+                line-height: 120px;
+                text-align: center;
+                background-color: #90EE90;
+            }
+
+            #start {
+                position: absolute;
+            	top: 50%; left: 50%;
+            	transform: translate(-50%,-50%);
+                font-family: "Gill Sans";
+                font-size: 14px;
+            }
+
+            #custom {
+                position: absolute;
+            	bottom: 1%; left: 50%;
+            	transform: translate(-50%,-50%);
+                font-family: "Gill Sans";
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body onload="init();">
+        <div id="letter"></div>
+        <button id="start" onclick="start();">Start to play</button>
+        <button id="custom" onclick="custom();">Custom Letters Set</button>
+    </body>
+</html>
