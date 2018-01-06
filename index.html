@@ -57,7 +57,9 @@
 
             function custom(){
                 var result = window.prompt("Enter the letters you want", localStorage.letters);
-                localStorage.letters = result.toUpperCase();
+                if (result) {
+                    localStorage.letters = result.toUpperCase();
+                }
             }
         </script>
         <style media="screen">
