@@ -67,6 +67,10 @@
             function init() {
                 var letter = document.getElementById('letter');
                 letter.style.display = "none";
+
+                if (!localStorage.letters) {
+                    localStorage.letters = "1234ABCD";
+                }
             }
 
             function start() {
