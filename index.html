@@ -56,6 +56,14 @@
                 return h + ":" + m + ":" + s;
             }
 
+            function getAPM() {
+                const minutes = startTime / 60;
+                var apm = parseInt(correct / minutes);
+
+                apm = minutes == 0 ? 0 : apm;
+                return "APM: " + apm;
+            }
+
             function init() {
                 var letter = document.getElementById('letter');
                 letter.style.display = "none";
@@ -75,6 +83,10 @@
                     const time = document.getElementById('time');
                     const ts = foramtTime();
                     time.innerText = ts;
+
+                    const apm = document.getElementById('apm');
+                    const as = getAPM();
+                    apm.innerText = as;
                 }, 1000);
             }
 
@@ -153,11 +165,19 @@
                 background-color: #CCCC00;
                 margin-left: 8px;
             }
+
+            #apm {
+                font-family: -apple-system, 'Helvetica Neue', Helvetica, sans-serif;
+                font-size: 13px;
+                padding: 3px;
+                background-color: #CCCC00;
+                margin-left: 8px;
+            }
         </style>
     </head>
     <body onload="init();">
         <div id="letter"></div>
         <button id="start" onclick="start();">Start to play</button>
-        <span id="rate">Correct Rate: 0/0</span><span id="time">00:00:00</span><button id="custom" onclick="custom();">Custom Letters Set</button>
+        <span id="rate">Correct Rate: 0/0</span><span id="time">00:00:00</span><span id="apm">APM: </span><button id="custom" onclick="custom();">Custom Letters Set</button>
     </body>
 </html>
